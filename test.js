@@ -36,7 +36,7 @@ let newprod = {id:31,x:428532.2718,y:872881.4383}
 const setNewData =(prod =[] )=>{
  return prod.reduce((acc,current)=>{
     return  [
-      ...acc,
+      ...acc, //round 1 [] //round 2[{id:1,x:1,y2,rage:[...value]}] rund 3 [{..},{..}]
       {
       id:current.id,
        x:current.x,
@@ -51,9 +51,50 @@ const setNewData =(prod =[] )=>{
     ]
   },[])
 }
-console.log(setNewData(prod))
+// console.log(setNewData(prod)) //30 nodes
+
+const NUGGET =  0
+const SILL = 0.1
+const RANGE = 300
+
+const getSemiValian = (node=[])=>node.reduce((acc,current)=>{
+    return  [
+      ...acc, //round 1 [] //round 2[{id:1,x:1,y2,rage:[...value]}] rund 3 [{..},{..}]
+      {
+      id:current.id,
+       x:current.x,
+       y:current.y,
+     //  range:current.range,
+       semi:current.range.reduce((acc,rangeValue)=>{
+         if(acc.length===current.range.length-1){
+            return [
+              ...acc,
+              1,
+            ]
+         }else if(rangeValue === 0){
+           return [
+             ...acc,
+             rangeValue,
+           ]
+         }else{
+           return [
+             ...acc,
+             NUGGET+ (SILL*(1-Math.exp(-rangeValue/RANGE)))
+           ]
+         }
+       },[])
+      }
+    ]
+  },[])
+  //[[1,2,3,4,5]//node1
+//  [1,2,3,4,5]//node2]
+//console.log(setNewData(prod)) //30 nodes
 prod =  [
   ...prod,
   newprod,
-]
-let updateProd = setNewData(prod)
+] //update pord
+let updateProd = setNewData(prod) //31 nodes
+//console.log(updateProd)
+let seminivalue = getSemiValian(updateProd)
+console.log(seminivalue)
+
