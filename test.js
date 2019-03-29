@@ -96,5 +96,18 @@ prod =  [
 let updateProd = setNewData(prod) //31 nodes
 //console.log(updateProd)
 let seminivalue = getSemiValian(updateProd)
-console.log(seminivalue)
+// console.log(JSON.stringify(seminivalue))
 
+let matrix = seminivalue.reduce((array,next)=>{
+  return [
+    ...array,
+    next.semi.reduce((prev,value)=>{
+      return [
+        ...prev,
+        value,
+      ]
+    },[])
+  ]
+},[])
+let x = matrix
+console.log(x[0][0])
