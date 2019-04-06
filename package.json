@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon server.js",
+    "create": "npm-run-parallel create:*",
+    "create:nodemodel": "npx sequelize model:generate --name Node --attributes latitude:decimal,longtitude:decimal,attitude:decimal",
+    "create:rangemodel": "npx sequelize model:generate --name range --attributes range:decimal,rangeFromNode:decimal",
+    "create:variogrammodel": "npx sequelize model:generate --name variogram --attributes nugget:decimal,sill:decimal,range:decimal",
+    "create:predictmodel": "npx sequelize model:generate --name predict --attributes zpredict:decimal,estimation:decimal,predictError:decimal",
     "start:nodejs": "node javascript.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,10 +17,17 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
     "nodemon": "^1.18.10"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "mathjs": "^5.8.0",
+    "mysql2": "^1.6.5",
+    "sequelize": "^5.2.11",
+    "sequelize-cli": "^5.4.0"
   }
 }
