@@ -49,8 +49,8 @@ app.post('/node/create', async (req, res) => {
         longtitude,
         attitude,
     }
+    // await Node.create(newNode) //create node 
     const nodeDatas = await Node.findAll()// query nodes 30 record
-    // const createNode = await Node.create(newNode) //create node 
     const tranformdata = createRangeTable(nodeDatas)
     // tranformdata.map(async ({ id, distance }) => {
     //     distance.map(async (rangeValue, index) => {
@@ -70,11 +70,12 @@ app.post('/node/create', async (req, res) => {
     let w = math.multiply(math.inv(A), b)
     let sum = 0
     for (let i = 0; i < tranformSemiVarianceData.length - 1; i += 1) {
-        sum += tranformSemiVarianceData[i].z * w[i]
+        console.log(tranformSemiVarianceData[i])
+        sum += tranformSemiVarianceData[i].attitude * w[i]
     }
-    sum
+    console.log('sum', sum)
     //res.send(tranformSemiVarianceData)
-    res.send(sum)
+    res.send({ status: 'success', value: sum })
 
 })
 app.put('/user/:id', (req, res) => {
