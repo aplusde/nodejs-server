@@ -49,20 +49,20 @@ app.post('/node/create', async (req, res) => {
         longtitude,
         attitude,
     }
-    // await Node.create(newNode) //create node 
+    // await Node.create(newNode) //create node  // TODO HERE
     const nodeDatas = await Node.findAll()// query nodes 30 record
     const tranformdata = createRangeTable(nodeDatas)
-    // tranformdata.map(async ({ id, distance }) => {
-    //     distance.map(async (rangeValue, index) => {
-    //         range.findOrCreate({ where: { nodeId: id, range: rangeValue, rangeFromNode: index + 1 }, default: { range: rangeValue } })
-    //             .then(([range, create]) => {
-    //                 console.log(range.get({
-    //                     plain: true
-    //                 }))
-    //                 console.log(create)
-    //             })
-    //     })
-    // })
+    tranformdata.map(async ({ id, distance }) => {
+        distance.map(async (rangeValue, index) => {
+            range.findOrCreate({ where: { nodeId: id, rangeFromNode: index + 1 }, defaults: { range: rangeValue } })
+                .then(([range, create]) => {
+                    console.log(range.get({
+                        plain: true
+                    }))
+                    console.log(create)
+                })
+        })
+    })
     const tranformSemiVarianceData = tranformSemivariance(tranformdata, { NUGGET: 0, SILL: 0.1, RANGE: 300 })
     const tranformMatrix = createMatrix(tranformSemiVarianceData)
     let A = tranformMatrix
@@ -70,10 +70,8 @@ app.post('/node/create', async (req, res) => {
     let w = math.multiply(math.inv(A), b)
     let sum = 0
     for (let i = 0; i < tranformSemiVarianceData.length - 1; i += 1) {
-        console.log(tranformSemiVarianceData[i])
         sum += tranformSemiVarianceData[i].attitude * w[i]
     }
-    console.log('sum', sum)
     //res.send(tranformSemiVarianceData)
     res.send({ status: 'success', value: sum })
 
