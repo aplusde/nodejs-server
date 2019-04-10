@@ -132,3 +132,37 @@ for (let i = 0; i < seminivalue.length - 1; i += 1) {
   sum += seminivalue[i].z * w[i]
 }
 sum
+
+const xxx = [
+  { latitude: 428568.6913, longtitude: 872921.7377, attitude: 30 },
+  { latitude: 428646.7539, longtitude: 872900.0566, attitude: 30 },
+  { latitude: 428548.8841, longtitude: 872904.5756, attitude: 31 },
+  { latitude: 428518.0068, longtitude: 872919.8637, attitude: 32 },
+  { latitude: 428553.0826, longtitude: 872855.9671, attitude: 32 },
+  { latitude: 428482.907, longtitude: 872919.6548, attitude: 33 },
+  { latitude: 428534.4663, longtitude: 872848.3179, attitude: 33 },
+  { latitude: 428646.3654, longtitude: 872812.1907, attitude: 33 },
+  { latitude: 428460.3046, longtitude: 872921.5127, attitude: 34 },
+  { latitude: 428469.2297, longtitude: 872878.4219, attitude: 34 },
+  { latitude: 428469.6302, longtitude: 872877.147, attitude: 34 },
+  { latitude: 428436.697, longtitude: 872920.7764, attitude: 35 },
+  { latitude: 428384.4791, longtitude: 872922.5208, attitude: 36 },
+  { latitude: 428448.9284, longtitude: 872873.0868, attitude: 36 },
+  { latitude: 428516.8357, longtitude: 872717.7956, attitude: 36 },
+  { latitude: 428619.246, longtitude: 872733.5326, attitude: 36 },
+  { latitude: 428450.8906, longtitude: 872772.0418, attitude: 36 },
+  { latitude: 428513.3743, longtitude: 872799.3481, attitude: 35 },
+  { latitude: 428539.8487, longtitude: 872826.5365, attitude: 34 },
+  { latitude: 428628.6253, longtitude: 872809.4068, attitude: 32 },
+  { latitude: 428620.5551, longtitude: 872807.1439, attitude: 33 },
+  { latitude: 428600.3184, longtitude: 872793.2637, attitude: 35 },
+  { latitude: 428530.1414, longtitude: 872887.0892, attitude: 30.453 },
+  { latitude: 428636.8825, longtitude: 872804.3883, attitude: 33 },
+  { latitude: 428632.8345, longtitude: 872798.1991, attitude: 34 },
+  { latitude: 428478.7595, longtitude: 872882.4471, attitude: 33 },
+  { latitude: 428467.1532, longtitude: 872885.3028, attitude: 34 },
+  { latitude: 428437.5301, longtitude: 872888.0202, attitude: 36 },
+  { latitude: 428468.4676, longtitude: 872717.8377, attitude: 36 },
+  { latitude: 428628.628, longtitude: 872742.6148, attitude: 36 }
+]
+console.log(JSON.stringify(xxx))

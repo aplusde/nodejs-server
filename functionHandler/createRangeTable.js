@@ -6,6 +6,7 @@ export default (prod = []) => {
         id: current.id,
         latitude: current.latitude,
         longtitude: current.longtitude,
+        attitude: current.attitude,
         distance: prod.reduce((acc, next) => {
           return [
             ...acc,
