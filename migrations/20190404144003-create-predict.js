@@ -8,21 +8,28 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      varioId:{
+      nodeId: {
         type: Sequelize.INTEGER,
-        references:{
+        references: {
+          model: 'Nodes',
+          key: 'id',
+        }
+      },
+      varioId: {
+        type: Sequelize.INTEGER,
+        references: {
           model: 'variograms',
-          key:'id',
+          key: 'id',
         }
       },
       zpredict: {
-        type: Sequelize.DECIMAL(20,10)
+        type: Sequelize.DECIMAL(20, 10)
       },
       estimation: {
-        type: Sequelize.DECIMAL(20,10)
+        type: Sequelize.DECIMAL(20, 10)
       },
       predictError: {
-        type: Sequelize.DECIMAL(20,10)
+        type: Sequelize.DECIMAL(20, 10)
       },
       createdAt: {
         allowNull: false,
