@@ -4,6 +4,7 @@ var bodyParser = require('body-parser')
 import math from 'mathjs'
 
 import { Node, range,variogram,predict } from './models'
+
 import createRangeTable from './functionHandler/createRangeTable'
 import tranformSemivariance from './functionHandler/tranformSemivariance'
 import createMatrix from './functionHandler/createMatrix'
