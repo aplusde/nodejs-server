@@ -45,17 +45,6 @@ app.post('/node/create-with-attitude', async (req, res) => {
     await Node.create(newNode)
     const nodeDatas = await Node.findAll()
     const tranformdata = createRangeTable(nodeDatas)
-    // tranformdata.map(async ({ id, distance }) => {
-    //     distance.map(async (rangeValue, index) => {
-    //         range.findOrCreate({ where: { nodeId: id, rangeFromNode: index + 1 }, defaults: { range: rangeValue } })
-    //             .then(([range, create]) => {
-    //                 console.log(range.get({
-    //                     plain: true
-    //                 }))
-    //                 console.log(create)
-    //             })
-    //     })
-    // })
     const tranformSemiVarianceData = tranformSemivariance(tranformdata, { NUGGET: 0, SILL: 0.1, RANGE: 300 })
     const tranformMatrix = createMatrix(tranformSemiVarianceData)
     let A = tranformMatrix
@@ -81,6 +70,7 @@ app.post('/semivariogram/create', async (req, res) => {
     const nodeDatas = await Node.findAll()
     const getAllVariogram = await variogram.findAll()
     getAllVariogram.map(async ({ id, nugget, sill, range }) => {
+        const varioID = id
         const tranformdata = createRangeTable(nodeDatas)
         const tranformSemiVarianceData = tranformSemivariance(tranformdata, { NUGGET: +nugget, SILL: +sill, RANGE: +range })
         const tranformMatrix = createMatrix(tranformSemiVarianceData)
@@ -92,15 +82,17 @@ app.post('/semivariogram/create', async (req, res) => {
             sum += tranformSemiVarianceData[i].attitude * w[i]
         }
         const error = math.sum(math.dotMultiply(tranformSemiVarianceData[tranformSemiVarianceData.length - 1].semi, w))
-        const { attitude } = nodeDatas[nodeDatas.length - 1]
-        await predict.findOrCreate({
-            where: { varioId: id }, defaults: {
-                zpredict: sum,
-                estimation: Math.abs(attitude - sum),
-                predictError: error,
-            }
-        }
-        )
+        nodeDatas.map(async ({ id, attitude }) => {
+            const nodeID = id
+            await predict.findOrCreate({
+                where: { varioId: varioID, nodeId: nodeID }, defaults: {
+                    zpredict: sum,
+                    estimation: Math.abs(attitude - sum),
+                    predictError: error,
+                }
+            })
+        })
+
     })
     const getAllPredict = await predict.findAll()
     res.send({ data: getAllPredict })
