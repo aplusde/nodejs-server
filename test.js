@@ -119,6 +119,9 @@ let matrix = (seminivalue = []) => seminivalue.reduce((array, next) => {
 // }
 
 /* START  CAL  30 node  find best nugget sill range */
+const calCulateAttitude = (prod=[])=>{
+const {id,z} = prod[prod.length -1]
+
 let max = 0
 const range = setNewData(prod)
 range.map(({ range }) => {
@@ -168,8 +171,10 @@ for (let i = 0; i < nuggetArray.length; i++) {
     }
   }
 }
-console.log('CALCULATE WITH 30 NODE FIND BEST  NUGGET, SILL, RANGE')
+console.log('CALCULATE WITH 31 NODE FIND BEST  NUGGET, SILL, RANGE')
 console.log('***********RESULT***********')
+console.log(`find attitude in node id`)
+console.log(id)
 console.log('predict  error:')
 console.log(min)
 console.log('NUGGET')
@@ -178,12 +183,19 @@ console.log('SILL')
 console.log(sillArray[bestSill])
 console.log('RANGE')
 console.log(rangeArray[bestRange])
-console.log('EXPECT ATTITUDE NODE 31')
+console.log(`EXPECT ATTITUDE NODE ${id}`)
 console.log(bestSum)
-console.log('ACTUAL ATTITUDE NODE 31')
-console.log(30.453)
+console.log(`ACTUAL ATTITUDE NODE ${id}`)
+console.log(z)
+}
+let transformData = prod
 
-
+for(let i = 0 ; i<prod.length ;i++){
+let temp = transformData.shift()
+transformData.unshift()
+transformData.push(temp)
+calCulateAttitude(transformData)
+}
 /*  END */
 /* START ADD NEW  NODE 31  */
 // const newNode = [
